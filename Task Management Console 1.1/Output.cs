@@ -33,5 +33,16 @@ namespace Task_Management_Console_1._1
                 }
             }
         }
+        static public void TaskHistory(List<Task> tasks)
+        {
+            foreach (var task in tasks)
+            {
+                Console.WriteLine($"Users that was doing {task.taskName} ");
+                foreach (var person in task.usersHistory)
+                {
+                    Console.WriteLine($"{person.name} {person.lastName}");
+                }
+            }
+        }
     }
 }

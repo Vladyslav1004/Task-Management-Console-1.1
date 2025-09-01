@@ -8,29 +8,58 @@ namespace Task_Management_Console_1._1
 {
     class TaskManagement
     {
-        static public void GetTasks(List<User> users, List<Task> tasks)
+        static public void GetTasks(List<User> user, List<Task> task)
         {
-            for (int i = 0; i < users.Count; i++)
+            for (int i = 0; i < user.Count; i++)
             {
-                for (int j = 0; j < tasks.Count; j++)
+                for (int j = 0; j < task.Count; j++)
                 {
-                    if (users[i].isBusy == false && tasks[j].waiting == true)
+                    if (user[i].isBusy == false && task[j].waiting == true)
                     {
-                        Task freeTask = null;
-                        freeTask = tasks[j];
-                        freeTask.assignedUser = users[i];
-                        freeTask.waiting = false;
-                        freeTask.inProgres = true;
-                        users[i].isBusy = true;
-                        checkTaskStatus();
+                        task[j].assignedUser = user[i];
+                        task[j].waiting = false;
+                        task[j].inProgres = true;
+                        user[i].isBusy = true;
+                        task[j].usersHistory.Add(user[i]);
                     }
                 }
             }
         }
 
-        static private void checkTaskStatus()
+        static public void ChangeTask(List<User> users, List<Task> tasks)
         {
-
+            for (int i = 0; i < users.Count; i++)
+            {
+                for (int j = 0; j < tasks.Count; j++)
+                {
+                    // якщо задача вільна і користувач її ще ніколи не робив
+                    if (!users[i].isBusy && tasks[j].waiting && !tasks[j].usersHistory.Contains(users[i]))
+                    {
+                        tasks[j].assignedUser = users[i];
+                        tasks[j].waiting = false;
+                        tasks[j].inProgres = true;
+                        users[i].isBusy = true;
+                        tasks[j].usersHistory.Add(users[i]);
+                        break;
+                    }
+                }
+            }
+        }
+        static public void FreeTasks(List<User> users, List<Task> tasks)
+        {
+            foreach (var task in  tasks)
+            {
+                foreach (var user in users)
+                {
+                    if (task.inProgres && task.assignedUser == user)
+                    {
+                        task.inProgres = false;
+                        task.waiting = true;
+                        task.assignedUser = null;
+                        user.isBusy = false;
+                    }
+                }
+            }
         }
     }
 }
