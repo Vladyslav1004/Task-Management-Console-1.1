@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_Management_Web_API_1._1
+namespace Task_Management_Console_1._1
 {
     class User
     {

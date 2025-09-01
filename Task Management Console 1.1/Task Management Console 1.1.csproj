@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1E4E0071-3DB9-40F8-8D60-EB5F173883FB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Task_Management_Web_API_1._1</RootNamespace>
-    <AssemblyName>Task Management Web API 1.1</AssemblyName>
+    <RootNamespace>Task_Management_Console_1._1</RootNamespace>
+    <AssemblyName>Task Management Console 1.1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

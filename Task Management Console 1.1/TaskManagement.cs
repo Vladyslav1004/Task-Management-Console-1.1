@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_Management_Web_API_1._1
+namespace Task_Management_Console_1._1
 {
     class TaskManagement
     {
@@ -14,17 +14,23 @@ namespace Task_Management_Web_API_1._1
             {
                 for (int j = 0; j < tasks.Count; j++)
                 {
-                    if (users[i].isBusy == false && tasks[j].notStarted == true)
+                    if (users[i].isBusy == false && tasks[j].waiting == true)
                     {
                         Task freeTask = null;
                         freeTask = tasks[j];
                         freeTask.assignedUser = users[i];
-                        freeTask.notStarted = false;
+                        freeTask.waiting = false;
                         freeTask.inProgres = true;
                         users[i].isBusy = true;
+                        checkTaskStatus();
                     }
                 }
             }
+        }
+
+        static private void checkTaskStatus()
+        {
+
         }
     }
 }
