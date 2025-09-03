@@ -13,7 +13,7 @@ namespace Task_Management_Console_1._1
             List<User> users = Data.Users;
             List<Task> tasks = Data.Tasks;
 
-            
+
             while (true)
             {
                 Console.WriteLine($"You have {users.Count} users. Do you want to add more?");
@@ -39,7 +39,7 @@ namespace Task_Management_Console_1._1
                     {
                         continue;
                     }
-                    
+
                 }
                 else
                 {
@@ -47,42 +47,25 @@ namespace Task_Management_Console_1._1
                 }
             }
 
-            //TaskManagement.GetTasks(users, tasks);
 
-            //Output.informationBoard (users, tasks);
-            //Output.TaskHistory(tasks);
-            //TaskManagement.FreeTasks(users, tasks);
+            TaskManagement.GetTasks(users, tasks);
+            Output.informationBoard(users, tasks);
+            Output.TaskHistory(tasks);
+            TaskManagement.FreeTasks(users, tasks);
+            while (true)
+            {
+                TaskManagement.ChangeTask(users, tasks);
+                Output.informationBoard(users, tasks);
+                Output.TaskHistory(tasks);
 
-            //TaskManagement.ChangeTask(users, tasks);
-            //Output.informationBoard(users, tasks);
-            //Output.TaskHistory(tasks);
-            //TaskManagement.FreeTasks(users, tasks);
+                TaskManagement.FreeTasks(users, tasks);   // ← спочатку звільняємо
 
-            //TaskManagement.ChangeTask(users, tasks);
-            //Output.informationBoard(users, tasks);
-            //Output.TaskHistory(tasks);
-            //TaskManagement.FreeTasks(users, tasks);
-
-            //TaskManagement.ChangeTask(users, tasks);
-            //Output.informationBoard(users, tasks);
-            //Output.TaskHistory(tasks);
-            //TaskManagement.FreeTasks(users, tasks);
-
-            //TaskManagement.ChangeTask(users, tasks);
-            //Output.informationBoard(users, tasks);
-            //Output.TaskHistory(tasks);
-            //TaskManagement.FreeTasks(users, tasks);
-
-            //TaskManagement.ChangeTask(users, tasks);
-            //Output.informationBoard(users, tasks);
-            //Output.TaskHistory(tasks);
-            //TaskManagement.FreeTasks(users, tasks);
-
-            //TaskManagement.ChangeTask(users, tasks);
-            //Output.informationBoard(users, tasks);
-            //Output.TaskHistory(tasks);
-            //TaskManagement.FreeTasks(users, tasks);
-
+                if (TaskManagement.FinishedTask(users, tasks))  // ← тепер перевіряємо
+                {
+                    Console.WriteLine("All tasks were finished");
+                    break;
+                }
+            }
         }
     }
 }

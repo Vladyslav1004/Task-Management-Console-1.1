@@ -28,14 +28,14 @@ namespace Task_Management_Console_1._1
 
         static public void ChangeTask(List<User> User, List<Task> Task)
         {
-            static Random rand = new Random();
+            Random rand = new Random();
             foreach (var user in User)
             {
                 if (!user.isBusy)
                 {
-                    var availableTask = Task.Where(t => t.waiting && t.previousUser != user).ToList();
+                    var availableTask = Task.Where(t => t.waiting && t.previousUser != user && !t.finished).ToList();
 
-                    if (availableTask > 0)
+                    if (availableTask.Count > 0)
                     {
                         var task = availableTask[rand.Next(availableTask.Count)];
                         task.assignedUser = user;
@@ -48,35 +48,25 @@ namespace Task_Management_Console_1._1
             }
         }
 
-        //static public void ChangeTask(List<User> users, List<Task> tasks)
-        //{
-        //    for (int i = 0; i < users.Count; i++)
-        //    {
-        //        for (int j = 0; j < tasks.Count; j++)
-        //        {
-        //            if (!users[i].isBusy && tasks[j].waiting && users[i] != tasks[j].previousUser)
-        //            {
-        //                tasks[j].assignedUser = users[i];
-        //                tasks[j].waiting = false;
-        //                tasks[j].inProgres = true;
-        //                users[i].isBusy = true;
-        //                tasks[j].usersHistory.Add(users[i]);
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
-
         static public void FreeTasks(List<User> users, List<Task> tasks)
         {
-            foreach (var task in  tasks)
+            foreach (var task in tasks)
             {
                 foreach (var user in users)
                 {
                     if (task.inProgres && task.assignedUser == user)
                     {
                         task.inProgres = false;
-                        task.waiting = true;
+
+                        if (!task.finished)   // ← перевірка
+                        {
+                            task.waiting = true;
+                        }
+                        else
+                        {
+                            task.waiting = false;
+                        }
+
                         task.previousUser = task.assignedUser;
                         task.assignedUser = null;
                         user.isBusy = false;
@@ -85,29 +75,30 @@ namespace Task_Management_Console_1._1
             }
         }
 
-        static public void FinishedTask(List<User> User, List<Task> Task)
+        static public bool FinishedTask(List<User> users, List<Task> tasks)
         {
-            
-            foreach (var task in Task)
-            {
-                bool isTaskFinished = false;
-                foreach (var user in User)
-                {
-                    if (task.usersHistory.Contains(user))
-                    {
-                        isTaskFinished = true;
-                    }
-                    else
-                    {
-                        isTaskFinished = false;
-                    }
-                }
+            bool allFinished = true;
 
-                if (isTaskFinished) 
+            foreach (var task in tasks)
+            {
+                if (task.finished)
+                    continue;
+
+                bool isTaskFinished = users.All(u => task.usersHistory.Contains(u));
+
+                if (isTaskFinished)
                 {
-                    task.finished = true;                
+                    task.finished = true;
+                    task.waiting = false;
+                    task.inProgres = false;
+                }
+                else
+                {
+                    allFinished = false;
                 }
             }
+
+            return allFinished;
         }
     }
 }
