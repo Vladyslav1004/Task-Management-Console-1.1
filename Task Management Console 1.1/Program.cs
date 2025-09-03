@@ -58,6 +58,31 @@ namespace Task_Management_Console_1._1
             Output.TaskHistory(tasks);
             TaskManagement.FreeTasks(users, tasks);
 
+            TaskManagement.ChangeTask(users, tasks);
+            Output.informationBoard(users, tasks);
+            Output.TaskHistory(tasks);
+            TaskManagement.FreeTasks(users, tasks);
+
+            TaskManagement.ChangeTask(users, tasks);
+            Output.informationBoard(users, tasks);
+            Output.TaskHistory(tasks);
+            TaskManagement.FreeTasks(users, tasks);
+
+            TaskManagement.ChangeTask(users, tasks);
+            Output.informationBoard(users, tasks);
+            Output.TaskHistory(tasks);
+            TaskManagement.FreeTasks(users, tasks);
+
+            TaskManagement.ChangeTask(users, tasks);
+            Output.informationBoard(users, tasks);
+            Output.TaskHistory(tasks);
+            TaskManagement.FreeTasks(users, tasks);
+
+            TaskManagement.ChangeTask(users, tasks);
+            Output.informationBoard(users, tasks);
+            Output.TaskHistory(tasks);
+            TaskManagement.FreeTasks(users, tasks);
+
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Task_Management_Console_1._1
         public bool finished;
 
         public User assignedUser { get; set; }
+        public User previousUser { get; set; }
 
         public List<User> usersHistory { get; set; } = new List<User>();
     }

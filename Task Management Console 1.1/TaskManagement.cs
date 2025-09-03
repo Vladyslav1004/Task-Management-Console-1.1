@@ -32,8 +32,7 @@ namespace Task_Management_Console_1._1
             {
                 for (int j = 0; j < tasks.Count; j++)
                 {
-                    // якщо задача вільна і користувач її ще ніколи не робив
-                    if (!users[i].isBusy && tasks[j].waiting && !tasks[j].usersHistory.Contains(users[i]))
+                    if (!users[i].isBusy && tasks[j].waiting && users[i] != tasks[j].previousUser)
                     {
                         tasks[j].assignedUser = users[i];
                         tasks[j].waiting = false;
@@ -55,9 +54,34 @@ namespace Task_Management_Console_1._1
                     {
                         task.inProgres = false;
                         task.waiting = true;
+                        task.previousUser = task.assignedUser;
                         task.assignedUser = null;
                         user.isBusy = false;
                     }
+                }
+            }
+        }
+
+        static public void FinishedTask(List<User> User, List<Task> Task)
+        {
+            bool isTaskFinished = false;
+            foreach (var task in Task)
+            {
+                foreach (var user in User)
+                {
+                    if (task.usersHistory.Contains(user))
+                    {
+                        isTaskFinished = true;
+                    }
+                    else
+                    {
+                        isTaskFinished = false;
+                    }
+                }
+
+                if (isTaskFinished) 
+                {
+                    task.finished = true;                
                 }
             }
         }
