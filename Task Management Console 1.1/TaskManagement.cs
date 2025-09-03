@@ -26,24 +26,46 @@ namespace Task_Management_Console_1._1
             }
         }
 
-        static public void ChangeTask(List<User> users, List<Task> tasks)
+        static public void ChangeTask(List<User> User, List<Task> Task)
         {
-            for (int i = 0; i < users.Count; i++)
+            static Random rand = new Random();
+            foreach (var user in User)
             {
-                for (int j = 0; j < tasks.Count; j++)
+                if (!user.isBusy)
                 {
-                    if (!users[i].isBusy && tasks[j].waiting && users[i] != tasks[j].previousUser)
+                    var availableTask = Task.Where(t => t.waiting && t.previousUser != user).ToList();
+
+                    if (availableTask > 0)
                     {
-                        tasks[j].assignedUser = users[i];
-                        tasks[j].waiting = false;
-                        tasks[j].inProgres = true;
-                        users[i].isBusy = true;
-                        tasks[j].usersHistory.Add(users[i]);
-                        break;
+                        var task = availableTask[rand.Next(availableTask.Count)];
+                        task.assignedUser = user;
+                        task.waiting = false;
+                        task.inProgres = true;
+                        user.isBusy = true;
+                        task.usersHistory.Add(user);
                     }
                 }
             }
         }
+
+        //static public void ChangeTask(List<User> users, List<Task> tasks)
+        //{
+        //    for (int i = 0; i < users.Count; i++)
+        //    {
+        //        for (int j = 0; j < tasks.Count; j++)
+        //        {
+        //            if (!users[i].isBusy && tasks[j].waiting && users[i] != tasks[j].previousUser)
+        //            {
+        //                tasks[j].assignedUser = users[i];
+        //                tasks[j].waiting = false;
+        //                tasks[j].inProgres = true;
+        //                users[i].isBusy = true;
+        //                tasks[j].usersHistory.Add(users[i]);
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
         static public void FreeTasks(List<User> users, List<Task> tasks)
         {
@@ -65,9 +87,10 @@ namespace Task_Management_Console_1._1
 
         static public void FinishedTask(List<User> User, List<Task> Task)
         {
-            bool isTaskFinished = false;
+            
             foreach (var task in Task)
             {
+                bool isTaskFinished = false;
                 foreach (var user in User)
                 {
                     if (task.usersHistory.Contains(user))
