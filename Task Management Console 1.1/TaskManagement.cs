@@ -44,6 +44,7 @@ namespace Task_Management_Console_1._1
                 }
             }
         }
+
         static public void FreeTasks(List<User> users, List<Task> tasks)
         {
             foreach (var task in  tasks)
